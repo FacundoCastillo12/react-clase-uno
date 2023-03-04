@@ -12,7 +12,19 @@
  * Para obtener el valor del input en el event handler, deberán usar la propiedad `event.target.value`.
  */
 
-export function MatchNombre(props) {}
+export function MatchNombre(props) {
+    const [value, setValue] = React.useState('');
+
+    const handleChange  = (event) => {
+        setValue(event.target.value)
+    }
+
+    return (
+    <input onChange={handleChange}
+    className={value === props.nombre ? `input-match` : 'input'}
+    value={value}></input>
+    )
+}
 
 /*
  * Componentes como este son usados a menudo para hacer validaciones de inputs
@@ -32,7 +44,21 @@ export function MatchNombre(props) {}
  * Si hicieron todo bien, el input se pondrá rojo si no pasaron el tamaño mínimo de la contraseña.
  */
 
-export function PasswordInput(props) {}
+export function PasswordInput({minLength}) {
+    const [password, setPassword] = React.useState('');
+
+    const handleChange  = (event) => {
+        setPassword(event.target.value)
+    }
+
+    const inputClassName = password.length < minLength ? 'input-match' : 'input';
+
+    return (
+    <input type={'password'} onChange={handleChange}
+    className={inputClassName}
+    value={password}></input>
+    )
+}
 
 /*
  * Estos componentes están bastante buenos, pero estamos repitiendo mucho código,
@@ -60,4 +86,24 @@ export function PasswordInput(props) {}
  * Si quieren, pueden agregar una prop extra "isPassword". Si es true el input deberá tener type="password".
  */
 
-export function ValidationInput(props) {}
+
+export function ValidationInput({validation, isPassword, placeholder}) {
+    const [value, setValue] = React.useState('');
+
+    const handleChange  = (event) => {
+        setValue(event.target.value)
+    }
+    const isValid = validation(value);
+
+    const inputClassName = `input ${isValid ? '' : 'input-match'}`;
+    
+    return (
+    <input 
+    type={isPassword ? 'password' : 'text'} 
+    onChange={handleChange}
+    className={inputClassName}
+    value={value}
+    placeholder={placeholder}
+    ></input>
+    )
+}

@@ -2,7 +2,7 @@
   "name": "react-clase-uno",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index-mio.js",
   "scripts": {
     "compiler": "babel --watch src --out-dir lib --presets @babel/preset-react",
     "server": "http-server -c-1"
